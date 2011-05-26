@@ -1,7 +1,10 @@
 #!/usr/bin/env ruby
 
 require "rubygems"
-gem "markobj"
+require "markobj"
 
-MarkObj.load_yaml(ARGV.pop)
-p MarkObj.generate.inspect
+obj = MarkObj.new(:plant)
+
+#obj.load_yaml(File.read ARGV.pop)
+obj.add_dimension(:stem_color, [:red, :blue, [0.05, :gold]])
+puts obj.generate.inspect
