@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require "rubygems"
+gem "markobj"
+
+MarkObj.load_yaml(ARGV.pop)
+p MarkObj.generate.inspect
