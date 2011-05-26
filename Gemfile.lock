@@ -1,0 +1,23 @@
+GIT
+  remote: https://github.com/ooyala/scope.git
+  revision: 5d4af1f98138569a679695a9540523025213d158
+  specs:
+    scope (0.2.1)
+      minitest
+
+PATH
+  remote: .
+  specs:
+    markobj (0.0.1)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    minitest (2.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  markobj!
+  scope!

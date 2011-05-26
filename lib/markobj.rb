@@ -20,7 +20,7 @@ class MarkObj
 
   def add_dimension(name, values)
     @contents ||= {}
-    @contents[name.to_sym] = normalize_dimension(values)
+    @contents[name.to_sym] = normalize_dimension_array(values)
   end
 
   def generate
