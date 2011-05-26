@@ -15,15 +15,28 @@ class ObjectFormatTest < Scope::TestCase
       @obj = MarkObj.new(:obj_name)
     end
 
+    teardown do
+      MarkObj.clear_names
+    end
+
     should "add a dimension with a simple array value" do
       assert_dimension @obj, :dim1, [:val1, :val2, :val3], <<YAML
 ---
 :dim1:
-- :name: :val1
+- :value: :val1
   :odds: 1.0
-- :name: :val2
+- :value: :val2
   :odds: 1.0
-- :name: :val3
+- :value: :val3
+  :odds: 1.0
+YAML
+    end
+
+    should "add a dimension with a hash value" do
+      assert_dimension @obj, :dim1, [{:value => :val1, :odds => 1.0}], <<YAML
+---
+:dim1:
+- :value: :val1
   :odds: 1.0
 YAML
     end

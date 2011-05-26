@@ -3,10 +3,19 @@ require "yaml"
 class MarkObj
   attr_reader :name
 
+  def self.by_name(name)
+    @@names ||= {}
+    @@names[name.to_sym]
+  end
+
+  def self.clear_names
+    @@names = {}
+  end
+
   def initialize(name)
     @@names ||= {}
     raise "Name '#{name}' is already taken!" if @@names[name]
-    @@names[name] = self
+    @@names[name.to_sym] = self
     @name = name
   end
 
@@ -31,18 +40,18 @@ class MarkObj
 
   def normalize_dimension_value(v)
     case v
-    when Symbol, String
-      { :name => v.to_sym, :odds => 1.0 }
+    when Symbol, String, Numeric, Range
+      { :value => v, :odds => 1.0 }
     when Hash
-      raise "Can't get name!" unless v[:name]
-      { :name => v[:name], :odds => v[:odds] || 1.0 }
+      raise "Can't get value!" unless v[:value]
+      { :value => v[:value], :odds => v[:odds] || 1.0 }
     when MarkObj
-      { :name => v.name, :odds => 1.0 }
+      { :value => v.name.to_sym, :odds => 1.0 }
     when Array
       if v[0].kind_of?(Numeric)
         v[0], v[1] = v[1], v[0]
       end
-      { :name => v[0].to_sym, :odds => v[1] }
+      { :value => v[0].to_sym, :odds => v[1] }
     else
       raise "Can't normalize value #{v.inspect}!"
     end
